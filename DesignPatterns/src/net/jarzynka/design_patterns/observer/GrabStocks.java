@@ -38,7 +38,6 @@ public class GrabStocks {
 		
 		stockGrabber.unregister(observer1); // now observer1 will no longer get notified on changes to update()
 		
-
 		
 		// now we'll only see observer2 respond to any stock price changes/update()s
 		
@@ -46,7 +45,17 @@ public class GrabStocks {
 		stockGrabber.setAaplPrice(1100.00);
 		stockGrabber.setGoogPrice(950.50);
 		
+		// now let's attempt to use our StockGrabber thread example
 		
+		// create three new Threads, one for each of our stocks.
+		Runnable getIbm = new GetTheStock(stockGrabber, 2, "IBM", 197.00);
+		Runnable getAapl = new GetTheStock(stockGrabber, 1, "AAPL", 1100.60);
+		Runnable getGoog = new GetTheStock(stockGrabber, 1, "GOOG", 950.50);
+		
+		// we now need to kick off three new Threads using the references we created above
+		new Thread(getIbm).start();
+		new Thread(getAapl).start();
+		new Thread(getGoog).start();
 		
 
 	}
